@@ -1,0 +1,16 @@
+#lang racket
+(define (same-parity p . l)
+  (define (parity par acc list)
+    (cond
+      ((null? list) acc)
+      ((or
+        (and (= (modulo par 2) 0) (= (modulo (car list) 2) 0))
+        (and (= (modulo par 2) 1) (= (modulo (car list) 2) 1)))
+          (parity par (cons (car list) acc) (cdr list)))
+      (else (parity par acc (cdr list)))))
+  (reverse (parity p (list p) l))
+)
+(same-parity 1)
+(same-parity 2)
+(same-parity 1 2 3 4 5 6)
+(same-parity 2 3 4 5 6)

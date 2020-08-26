@@ -1,0 +1,10 @@
+#lang racket 
+(define (deriv f dx) 
+  (lambda (x) 
+    (/ (- (f (+ x dx)) (f x)) dx))) 
+
+(define (nth_deriv n f dx) 
+  (if (= n 0) f (nth_deriv (- n 1) (deriv f dx) dx))) 
+
+
+((nth_deriv 2 (lambda (x) (* x x)) 0.001) 0)
